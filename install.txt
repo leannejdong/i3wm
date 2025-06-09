@@ -39,3 +39,13 @@ ping google.com
 
 dhcpcd wlan0
 
+!switch wifi
+
+nmcli device wifi list
+nmcli device wifi connect "SSID" password "your_passport"
+!disconnect
+nmcli devoce disconnect wlan0
+
+!check logs
+journalc; -xe
+
