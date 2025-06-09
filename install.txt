@@ -1,0 +1,41 @@
+systemctl enable --now iwd
+iwctl
+device list
+station wlan0 scan
+station wlan0 get-networks
+exit
+
+iwctl --passphrase "  " station wlan0 connect malfi
+!enable ssh
+systemctl status sshd
+!check ssh status
+systemctl status sshd
+ 
+!update archinstall
+
+pacman -Sy archinstall --noconfirm
+archinstall -v
+
+!run
+archinstall
+
+!choose mirror
+
+
+!troubleshoot
+
+!!bring wifi int up
+ip link set wlan0 up
+ip link show wlan0
+
+!reconnect to wifi
+iwctl
+station wlan0 scan
+station wlan0 get-networks
+station wlan0 connect malfi
+exit
+
+ping google.com
+
+dhcpcd wlan0
+
