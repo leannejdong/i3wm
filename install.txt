@@ -23,11 +23,33 @@ archinstall
 
 
 !troubleshoot
-
 !!bring wifi int up
+ip link
 ip link set wlan0 up
+sudo wpa_passphrase "<YOUR_WIFI_SSID>" "<YOUR_WIFI_PASSWORD>" /etc/wpa_applicant/wpa_supplicant-wlan0.conf
+sudo wpa_supplicant -B -i wlan0 -c /etc/wpa_applicant/wpa_supplicant-wlan0.conf
+sudo dhcpcd wlan0
 ip link show wlan0
 
+!mount installed system's partitions
+!3 main partitions: /. /boot, /home
+!mounting 
+sudo mount /dev/nvme0n1p2 /mnt          #mount your root partition
+sudo mkdir -p /mnt/boot                 #Create the /boot mount point if it doesn't exist
+sudo mount /dev/nvme0n1p1 /mnt/boot     #Mount your EFI System partition as /boot
+sudo mkdir -p /mnt/home                 #Create the /home mount point if it doesn't exist
+sudo mount /dev/nvme0n1p3 /mnt/home     #Mount your separate /home partition 
+
+!Enter Chroot environment
+sudo arch-chroot /mnt
+
+! Perform full system update
+pacman -Syu
+exit
+sudo umount -R /mnt
+!remove live usb and reboot
+
+!!!
 !reconnect to wifi
 iwctl
 station wlan0 scan
@@ -48,4 +70,5 @@ nmcli devoce disconnect wlan0
 
 !check logs
 journalc; -xe
+
 
