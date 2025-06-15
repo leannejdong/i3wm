@@ -11,7 +11,7 @@ ollama serve &  # Runs API at localhost:11434
 
 ### Run
 
-1. Method 1
+1. via cli ask questions like gpt
 ```
 ollama run mistral
 ```
@@ -42,7 +42,7 @@ Disable the service to prevent it from starting on boot:
 `sudo systemctl disable ollama`
 
 Remove the Ollama Binary and Systemd Service File: 
-Remove the Ollama executable. The location might vary, but a common location is /usr/local/bin/ollama. 
+Remove the Ollama executable. The location might vary, but a common location is `/usr/local/bin/ollama`. 
 `sudo rm /usr/local/bin/ollama`
 
 If you created a systemd service file, remove it:
@@ -53,9 +53,10 @@ Reload the systemd daemon to reflect the changes:
 
 Remove Model Files (Optional, but recommended):
 Ollama stores models in a specific directory. You can find it by checking the output of ollama list or by checking the default locations:
-macOS: ~/.ollama/models
-Linux: /usr/share/ollama/.ollama/models
-Windows: C:\Users\%username%\.ollama\models 
+
+- macOS: `~/.ollama/models`
+- Linux: `/usr/share/ollama/.ollama/models`
+- Windows: `C:\Users\%username%\.ollama\models` 
 Remove the model files. You can list and remove them individually using ollama rm <model_name> or remove the entire directory if you want to remove all models. 
 
 Remove all models,
